@@ -1,0 +1,228 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.custom-table-container {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-table th {
+  background: linear-gradient(to right, #3a86ff, #4361ee);
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.custom-table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: 0.3s;
+}
+
+.custom-btn {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.custom-btn.edit {
+  background-color: #ffd166;
+  color: #000;
+}
+
+.custom-btn.delete {
+  background-color: #ef476f;
+  color: white;
+}
+
+.custom-btn.add {
+  background-color: #06d6a0;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.modal-header {
+  background: #4361ee;
+  color: white;
+}
+
+h2 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+/* Wrapper Styling */
+.custom-table-wrapper {
+    background: #f4f0ff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+  
+  /* Table Styling */
+  .custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .custom-table th {
+    background-color: #6a5acd;
+    color: white;
+    padding: 14px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  
+  .custom-table td {
+    background-color: white;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  /* Button Styling */
+  .btn-edit,
+  .btn-delete {
+    padding: 6px 12px;
+    border: none;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .btn-edit {
+    background-color: #ffd95c;
+    color: #5c4400;
+  }
+  
+  .btn-edit:hover {
+    background-color: #ffca2c;
+  }
+  
+  .btn-delete {
+    background-color: #ff6b6b;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #e63946;
+  }
+  
+  /* Responsive Improvements */
+  @media (max-width: 768px) {
+    .custom-table-wrapper {
+      padding: 15px;
+    }
+  
+    .custom-table th, .custom-table td {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+
+  /* Custom Modal Styling */
+.custom-modal {
+    max-width: 550px;
+    margin: auto;
+  }
+  
+  .modal-content {
+    border-radius: 18px;
+    border: none;
+    background: linear-gradient(145deg, #f5f5ff, #ffffff);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .modal-header .modal-title {
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+  }
+  
+  .modal-body input,
+  .modal-body select {
+    border: 2px solid #e0dfff;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .modal-body input:focus,
+  .modal-body select:focus {
+    border-color: #6a5acd;
+    box-shadow: 0 0 8px rgba(106, 90, 205, 0.2);
+    outline: none;
+  }
+  
+  /* Modal Footer Buttons */
+  .modal-footer {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  .modal-footer .btn {
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 0.3s ease;
+  }
+  
+  .modal-footer .btn-primary {
+    background-color: #6a5acd;
+    border: none;
+  }
+  
+  .modal-footer .btn-primary:hover {
+    background-color: #5941b1;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #cfcfcf;
+  }
+  .sidebar .profile-pic-container img {
+    border: 3px solid #ff0000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+#studentSearchInput {
+  max-width: 400px;
+  margin: 1rem auto;
+  display: block;
+}

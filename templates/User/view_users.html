@@ -1,0 +1,90 @@
+{% extends "Base/base.html" %}
+{% block title %}View Users{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='viewstudents.css') }}">
+
+
+<div class="container mt-4 custom-table-container">
+    <h2>👤 User Management</h2>
+
+    <div class="table-responsive">
+        <table id="usersTable" class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        {% if user.role == 'admin' %}
+                            <span class="badge bg-primary">{{ user.role.title() }}</span>
+                        {% elif user.role == 'nurse' %}
+                            <span class="badge bg-success">{{ user.role.title() }}</span>
+                        {% elif user.role == 'doctor' %}
+                            <span class="badge bg-info text-dark">{{ user.role.title() }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="custom-btn edit btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal{{ user.id }}">✏️ Edit</button>
+                        <a href="{{ url_for('delete_user', user_id=user.id) }}" class="custom-btn delete btn-sm" onclick="return confirm('Are you sure?')">🗑️ Delete</a>
+                    </td>
+                </tr>
+
+                <!-- Edit User Modal -->
+                <div class="modal fade" id="editUserModal{{ user.id }}" tabindex="-1" aria-labelledby="editUserModalLabel{{ user.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form method="POST" action="{{ url_for('edit_user', user_id=user.id) }}">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="editUserModalLabel{{ user.id }}">Edit User</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" name="username" class="form-control mb-2" placeholder="Username" value="{{ user.username }}" required>
+                                    <input type="password" name="password" class="form-control mb-2" placeholder="New Password (Leave blank to keep)">
+                                    <select name="role" class="form-control mb-2" required>
+                                        <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                                        <option value="nurse" {% if user.role == 'nurse' %}selected{% endif %}>Nurse</option>
+                                        <option value="doctor" {% if user.role == 'doctor' %}selected{% endif %}>Doctor</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- DataTables Script -->
+<script>
+    $(document).ready(function () {
+        $('#usersTable').DataTable({
+            responsive: true,
+            paging: true,
+            ordering: true,
+            info: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search users..."
+            },
+            columnDefs: [
+                { orderable: false, targets: 3 }  // Disable sorting for Actions column
+            ]
+        });
+    });
+</script>
+{% endblock %}

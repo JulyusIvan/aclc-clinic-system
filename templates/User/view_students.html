@@ -1,0 +1,88 @@
+{% extends "Base/base.html" %}
+{% block title %}View Students{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='viewstudents.css') }}">
+<div class="container mt-4 custom-table-container">
+    <h2>👨‍🎓 Student Information</h2>
+
+<div class="mb-3">
+  <input type="text" id="studentSearchInput" class="form-control" placeholder="🔍 Search students..." onkeyup="filterStudentTable()">
+</div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Birthday</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.bod }}</td>
+                    <td>{{ student.contact_info }}</td>
+                    <td>
+                        <button class="custom-btn edit btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ student.id }}">✏️ Edit</button>
+                        <a href="{{ url_for('delete_student', student_id=student.id) }}" class="custom-btn delete btn-sm" onclick="return confirm('Are you sure?')">🗑️ Delete</a>
+                    </td>
+                </tr>
+
+            <!-- Edit Student Modal -->
+            <div class="modal fade" id="editModal{{ student.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ student.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form method="POST" action="{{ url_for('edit_student', student_id=student.id) }}">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel{{ student.id }}">Edit Student</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" name="first_name" class="form-control mb-2" placeholder="First Name" value="{{ student.first_name }}" required>
+                                <input type="text" name="last_name" class="form-control mb-2" placeholder="Last Name" value="{{ student.last_name }}" required>
+                                <select name="gender" class="form-control mb-2" required>
+                                    <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
+                                </select>
+                                <input type="date" name="bod" class="form-control mb-2" value="{{ student.bod }}" required>
+                                <input type="text" name="contact_info" class="form-control mb-2" placeholder="Contact Info" value="{{ student.contact_info }}" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+function filterStudentTable() {
+  const input = document.getElementById("studentSearchInput").value.toLowerCase();
+  const rows = document.querySelectorAll(".custom-table tbody tr");
+
+  rows.forEach(row => {
+    const id = row.cells[0]?.textContent.toLowerCase() || '';
+    const name = row.cells[1]?.textContent.toLowerCase() || '';
+    const gender = row.cells[2]?.textContent.toLowerCase() || '';
+    const bday = row.cells[3]?.textContent.toLowerCase() || '';
+    const contact = row.cells[4]?.textContent.toLowerCase() || '';
+
+    const match = id.includes(input) || name.includes(input) || gender.includes(input) || bday.includes(input) || contact.includes(input);
+    row.style.display = match ? '' : 'none';
+  });
+}
+</script>
+
+{% endblock %}

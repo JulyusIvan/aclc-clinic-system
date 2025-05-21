@@ -1,0 +1,17 @@
+{% extends "Base/base.html" %}
+{% block title %}Add Student Log{% endblock %}
+{% block content %}
+<h3 class="mb-4 fw-bold">📝 Add Log for {{ student.first_name }} {{ student.last_name }}</h3>
+<form method="POST">
+  <div class="mb-3">
+    <label for="log_date" class="form-label">Log Date</label>
+    <input type="date" name="log_date" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="activity" class="form-label">Activity / Reason</label>
+    <textarea name="activity" class="form-control" rows="4" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Save Log</button>
+  <a href="{{ url_for('nurse_view_students') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

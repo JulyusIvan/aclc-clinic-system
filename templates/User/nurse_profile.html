@@ -1,0 +1,115 @@
+{% extends "Base/base.html" %}
+{% block title %} Nurse Profile {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='nurseprofile.css') }}"> 
+
+<!-- Add Nurse Button -->
+<button class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#addNurseModal">
+  ➕ Add Nurse Profile
+</button>
+
+<div class="container">
+  <h2 class="fw-bold mb-3">Nurse Profiles</h2>
+
+  <div class="table-responsive rounded shadow-sm">
+    <table class="table table-bordered align-middle mb-0">
+      <thead style="background: linear-gradient(to right, #00c6ff, #0072ff); color: white;" class="text-center">
+        <tr>
+          <th class="rounded-top-start">ID</th>
+          <th>Full Name</th>
+          <th>Shift</th>
+          <th>Contact Info</th>
+          <th class="rounded-top-end">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for n in nurse %}
+        <tr>
+          <td class="text-center">{{ n.id }}</td>
+          <td>{{ n.first_name }} {{ n.last_name }}</td>
+          <td>{{ n.shift }}</td>
+          <td>{{ n.contact_info }}</td>
+          <td class="text-center">
+            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editNurseModal{{ n.id }}">✏️ Edit</button>
+            <a href="{{ url_for('delete_nurse', nurse_id=n.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this nurse?')">🗑️ Delete</a>
+          </td>
+        </tr>
+
+        <!-- Edit Nurse Modal -->
+        <div class="modal fade" id="editNurseModal{{ n.id }}" tabindex="-1" aria-labelledby="editNurseModalLabel{{ n.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <form method="POST" action="{{ url_for('edit_nurse', nurse_id=n.id) }}">
+              <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                  <h5 class="modal-title">✏️ Edit Nurse</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="first_name" value="{{ n.first_name }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" value="{{ n.last_name }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Shift</label>
+                    <input type="text" class="form-control" name="shift" value="{{ n.shift }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Contact Info</label>
+                    <input type="text" class="form-control" name="contact_info" value="{{ n.contact_info }}" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">💾 Update</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <!-- Add Nurse Modal -->
+    <div class="modal fade" id="addNurseModal" tabindex="-1" aria-labelledby="addNurseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST" action="{{ url_for('add_nurse') }}">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="addNurseModalLabel">➕ Add Nurse Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" name="first_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="last_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="shift" class="form-label">Shift</label>
+                <input type="text" class="form-control" name="shift" required>
+            </div>
+            <div class="mb-3">
+                <label for="contact_info" class="form-label">Contact Info</label>
+                <input type="text" class="form-control" name="contact_info" required>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Add Nurse</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+
+{% endblock %}

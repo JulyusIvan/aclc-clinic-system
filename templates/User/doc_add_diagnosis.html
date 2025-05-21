@@ -1,0 +1,28 @@
+{% extends "Base/base.html" %}
+{% block title %}Add Diagnosis{% endblock %}
+{% block content %}
+
+<h3 class="mb-4 fw-bold">🩺 Add Diagnosis for {{ exam.student.first_name }} {{ exam.student.last_name }}</h3>
+
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">Diagnosis Details</label>
+    <textarea name="diagnose_details" class="form-control" rows="4" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Treatment Plan</label>
+    <textarea name="treatment_plan" class="form-control" rows="4" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Date Diagnosed</label>
+    <input type="date" name="date_diagnose" class="form-control" required>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <a href="{{ url_for('doctor_examinations') }}" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-success">Save Diagnosis</button>
+  </div>
+</form>
+{% endblock %}

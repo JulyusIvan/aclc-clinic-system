@@ -1,0 +1,198 @@
+/* Base Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Table styling */
+.custom-table-container {
+  margin-top: 20px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-table td {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table td:hover {
+  background-color: #f1f1f1;
+}
+
+/* Custom Button */
+.custom-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.custom-btn:hover {
+  background-color: #0056b3;
+}
+
+.custom-btn.delete {
+  background-color: #dc3545;
+}
+
+.custom-btn.delete:hover {
+  background-color: #c82333;
+}
+
+.custom-btn.edit {
+  background-color: #28a745;
+}
+
+.custom-btn.edit:hover {
+  background-color: #218838;
+}
+
+.custom-btn:active {
+  transform: scale(0.98);
+}
+
+/* Modal Styling */
+.modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-header .btn-close-white {
+  color: white;
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 10px;
+  text-align: right;
+}
+
+/* Modal Input Fields */
+.modal-body input,
+.modal-body select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Badge styling for roles */
+.badge {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 15px;
+  color: white;
+}
+
+/* Specific Role Badge Colors */
+.badge.bg-primary {
+  background-color: #007bff;
+}
+
+.badge.bg-success {
+  background-color: #28a745;
+}
+
+.badge.bg-info {
+  background-color: #17a2b8;
+}
+
+/* Search Input */
+.dataTables_filter input {
+  border-radius: 5px;
+  padding: 8px;
+  width: 300px;
+  margin-left: 10px;
+  border: 1px solid #ddd;
+}
+
+.dataTables_filter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Table Column Customization for Responsive Table */
+table.dataTable tbody tr {
+  transition: background-color 0.3s;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Pagination and table controls */
+.dataTables_paginate .paginate_button {
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  margin: 0 2px;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  background-color: #0056b3;
+}
+
+.dataTables_paginate .paginate_button.current {
+  background-color: #0056b3;
+  border: none;
+}
+
+/* Modal Animation */
+.modal.fade .modal-dialog {
+  transform: translate(0, -50px);
+  transition: transform 0.3s ease-out;
+}
+
+.modal.fade.show .modal-dialog {
+  transform: translate(0, 0);
+}
+
+/* Responsive Table for Mobile */
+@media (max-width: 768px) {
+  .custom-table th,
+  .custom-table td {
+      padding: 10px;
+      font-size: 14px;
+  }
+
+  .dataTables_filter input {
+      width: 100%;
+  }
+}
+.sidebar .profile-pic-container img {
+  border: 3px solid #ff0000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}

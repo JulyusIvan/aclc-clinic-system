@@ -1,0 +1,37 @@
+{% extends "Base/base.html" %}
+{% block title %}Add Nurse{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Add Nurse Profile</h4>
+        </div>
+        <form method="POST" action="{{ url_for('add_nurse') }}">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="first_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shift" class="form-label">Shift</label>
+                    <input type="text" class="form-control" name="shift" required>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_info" class="form-label">Contact Info</label>
+                    <input type="text" class="form-control" name="contact_info" required>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success">Add Nurse</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

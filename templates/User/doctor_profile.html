@@ -1,0 +1,105 @@
+{% extends "Base/base.html" %}
+{% block title %}Manage Doctors{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='docprofile.css') }}">
+
+<!-- Add Doctor Button -->
+<button class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#addDoctorModal">
+  ➕ Add Doctor
+</button>
+
+<!-- Doctor Table Card -->
+ <div class="container">
+  <h2 class="fw-bold mb-3">Doctor Profiles</h2>
+
+  <div class="table-responsive rounded shadow-sm">
+    <table class="table table-bordered align-middle mb-0">
+      <thead style="background: linear-gradient(to right, #00c6ff, #0072ff); color: white;" class="text-center">
+        <thead>
+          <tr>
+            <th class="rounded-top-start">ID</th>
+            <th>Full Name</th>
+            <th>Specialization</th>
+            <th>Contact Info</th>
+            <th class="rounded-top-end">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doctor in doctors %}
+          <tr>
+            <td class="text-center">{{ doctor.id }}</td>
+            <td>{{ doctor.first_name }} {{ doctor.last_name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.contact_info }}</td>
+            <td class="text-center">
+              <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editDoctorModal{{ doctor.id }}">
+                ✏️ Edit
+              </button>
+              <form method="POST" action="{{ url_for('delete_doctor', doctor_id=doctor.id) }}" class="d-inline" onsubmit="return confirm('Are you sure?');">
+                <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+              </form>
+            </td>
+          </tr>
+
+          <!-- Edit Doctor Modal -->
+          <div class="modal fade" id="editDoctorModal{{ doctor.id }}" tabindex="-1" aria-labelledby="editDoctorModalLabel{{ doctor.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <form method="POST" action="{{ url_for('edit_doctor', doctor_id=doctor.id) }}">
+                <div class="modal-content">
+                  <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="editDoctorModalLabel{{ doctor.id }}">Edit Doctor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <label class="form-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control mb-2" value="{{ doctor.first_name }}" required>
+                    <label class="form-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control mb-2" value="{{ doctor.last_name }}" required>
+                    <label class="form-label">Specialization</label>
+                    <input type="text" name="specialization" class="form-control mb-2" value="{{ doctor.specialization }}" required>
+                    <label class="form-label">Contact Info</label>
+                    <input type="text" name="contact_info" class="form-control mb-2" value="{{ doctor.contact_info }}" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">💾 Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Doctor Modal -->
+<div class="modal fade" id="addDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url_for('add_doctor') }}">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="addDoctorModalLabel">Add Doctor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label">First Name</label>
+          <input type="text" name="first_name" class="form-control mb-2" required>
+          <label class="form-label">Last Name</label>
+          <input type="text" name="last_name" class="form-control mb-2" required>
+          <label class="form-label">Specialization</label>
+          <input type="text" name="specialization" class="form-control mb-2" required>
+          <label class="form-label">Contact Info</label>
+          <input type="text" name="contact_info" class="form-control mb-2" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">➕ Add</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+/* Base Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+/* Table Styling */
+.custom-table-container {
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.custom-table td {
+    background-color: white;
+}
+
+.custom-table td:hover {
+    background-color: #f1f1f1;
+}
+
+/* Table Hover Effect */
+.custom-table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Search Box Styling */
+.dataTables_filter input {
+    border-radius: 5px;
+    padding: 8px;
+    width: 300px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+}
+
+.dataTables_filter {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Pagination and Table Controls */
+.dataTables_paginate .paginate_button {
+    background-color: #007bff;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    margin: 0 2px;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: #0056b3;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color: #0056b3;
+    border: none;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .custom-table th,
+    .custom-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .dataTables_filter input {
+        width: 100%;
+    }
+}
+
+/* Modal Animation (If any modals for logs are needed) */
+.modal.fade .modal-dialog {
+    transform: translate(0, -50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.fade.show .modal-dialog {
+    transform: translate(0, 0);
+}
+.sidebar .profile-pic-container img {
+    border: 3px solid #ff0000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 15px;
+  }
+  
+  .table th {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .modal-content {
+    border-radius: 15px;
+  }
+  
+  .modal-title {
+    color: #007bff;
+  }
+  

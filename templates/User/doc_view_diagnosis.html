@@ -1,0 +1,98 @@
+{% extends "Base/base.html" %}
+{% block title %}All Diagnoses{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='docviewdiagnosis.css') }}">
+<h3 class="mb-4 fw-bold">🩺 All Diagnoses</h3>
+<!-- Real-Time Search Input -->
+<div class="mb-3">
+  <input type="text" id="diagnosisSearchInput" class="form-control" placeholder="🔍 Search by student, symptoms, diagnosis, or treatment..." onkeyup="filterDiagnosisTable()">
+</div>
+
+<div class="table-responsive shadow-sm rounded">
+  <table class="table table-striped table-bordered align-middle text-center custom-table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Symptoms</th>
+      <th>Diagnosis</th>
+      <th>Treatment</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for diagnosis in diagnoses %}
+    <tr>
+      <td>{{ diagnosis.examine.student.first_name }} {{ diagnosis.examine.student.last_name }}</td>
+      <td>{{ diagnosis.examine.symptoms }}</td>
+      <td>{{ diagnosis.diagnose_details }}</td>
+      <td>{{ diagnosis.treatment_plan }}</td>
+      <td>{{ diagnosis.date_diagnose }}</td>
+      <td>
+        <!-- Edit Button to trigger modal -->
+        <button class="btn btn-warning btn-sm px-3" data-bs-toggle="modal" data-bs-target="#editDiagnosisModal{{ diagnosis.id }}">
+          ✏️ Edit
+        </button>
+
+        <!-- Delete Form -->
+        <form method="POST" action="{{ url_for('delete_diagnosis', diagnosis_id=diagnosis.id) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this diagnosis?');">
+          <button type="submit" class="btn btn-danger btn-sm px-3">🗑️ Delete</button>
+        </form>
+      </td>
+    </tr>
+
+    <!-- Edit Diagnosis Modal -->
+    <div class="modal fade" id="editDiagnosisModal{{ diagnosis.id }}" tabindex="-1" aria-labelledby="editDiagnosisModalLabel{{ diagnosis.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Edit Diagnosis for {{ diagnosis.examine.student.first_name }} {{ diagnosis.examine.student.last_name }}</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <form method="POST" action="{{ url_for('edit_diagnosis', diagnosis_id=diagnosis.id) }}">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Diagnosis Details</label>
+                <textarea name="diagnose_details" class="form-control" rows="3" required>{{ diagnosis.diagnose_details }}</textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Treatment Plan</label>
+                <textarea name="treatment_plan" class="form-control" rows="3" required>{{ diagnosis.treatment_plan }}</textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Date Diagnosed</label>
+                <input type="date" name="date_diagnose" value="{{ diagnosis.date_diagnose }}" class="form-control" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">💾 Save</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<script>
+function filterDiagnosisTable() {
+  const input = document.getElementById("diagnosisSearchInput").value.toLowerCase();
+  const rows = document.querySelectorAll(".custom-table tbody tr");
+
+  rows.forEach(row => {
+    const student = row.cells[0]?.textContent.toLowerCase() || '';
+    const symptoms = row.cells[1]?.textContent.toLowerCase() || '';
+    const diagnosis = row.cells[2]?.textContent.toLowerCase() || '';
+    const treatment = row.cells[3]?.textContent.toLowerCase() || '';
+
+    const match = student.includes(input) || symptoms.includes(input) || diagnosis.includes(input) || treatment.includes(input);
+    row.style.display = match ? '' : 'none';
+  });
+}
+</script>
+
+{% endblock %}

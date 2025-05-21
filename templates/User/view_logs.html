@@ -1,0 +1,48 @@
+{% extends "Base/base.html" %}
+{% block title %}Student Activity Logs{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='viewlogs.css') }}">
+
+<div class="container mt-4 custom-table-container">
+    <h2>📜 Student Activity Logs</h2>
+
+    <div class="table-responsive">
+        <table id="logsTable" class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Date</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.student.first_name }} {{ log.student.last_name }}</td>
+                    <td>{{ log.log_date }}</td>
+                    <td>{{ log.activity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#logsTable').DataTable({
+            responsive: true,
+            paging: true,
+            ordering: true,
+            info: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search logs..."
+            },
+            columnDefs: [
+                { orderable: false, targets: 2 }  // Disable sorting for Activity column
+            ]
+        });
+    });
+</script>
+{% endblock %}

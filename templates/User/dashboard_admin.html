@@ -1,0 +1,140 @@
+{% extends "Base/base.html" %}
+{% block title %}Admin - ACLC College Students Clinic Record System{% endblock %}
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    
+  <div id="main-content">
+    <div class="container-fluid px-4">
+      <h2 class="mb-4 fw-bold" style="font-family: 'BrickSans', sans-serif; color: #3c3c3c;">
+        Admin Dashboard Overview
+      </h2>
+  
+      <div class="row g-4">
+          <!-- Student Count -->
+          <div class="col-md-4 dashboard-card">
+              <div class="card border-0 shadow-lg rounded-4 text-white" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">
+                  <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                          <h6 class="card-subtitle mb-2 text-uppercase fw-semibold">Total Students</h6>
+                          <h2 class="fw-bold mb-0">{{ student_count }}</h2>
+                      </div>
+                      <div>
+                          <i class="fas fa-user-graduate fa-3x opacity-50"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- User Count -->
+          <div class="col-md-4 dashboard-card">
+              <div class="card border-0 shadow-lg rounded-4 text-white" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                  <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                          <h6 class="card-subtitle mb-2 text-uppercase fw-semibold">Total Users</h6>
+                          <h2 class="fw-bold mb-0">{{ user_count }}</h2>
+                      </div>
+                      <div>
+                          <i class="fas fa-users-cog fa-3x opacity-50"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- Logs Count -->
+          <div class="col-md-4 dashboard-card">
+              <div class="card border-0 shadow-lg rounded-4 text-white" style="background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);">
+                  <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                          <h6 class="card-subtitle mb-2 text-uppercase fw-semibold">Student Logs</h6>
+                          <h2 class="fw-bold mb-0">{{ log_count }}</h2>
+                      </div>
+                      <div>
+                          <i class="fas fa-book-open fa-3x opacity-50"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <!-- Recent Logs Section -->
+        <div class="card mt-5 border-0 shadow-sm rounded-4 recent-visits-table">
+            <div class="card-body">
+                <h4 class="card-title fw-bold mb-4" style="font-family: 'BrickSans', sans-serif;">📜 Recent Logs</h4>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Date</th>
+                                <th>Activity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in recent_logs %}
+                            <tr>
+                                <td>{{ log.first_name }} {{ log.last_name }}</td>
+                                <td>{{ log.log_date }}</td>
+                                <td>{{ log.activity }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+  </div>  
+  </div>  
+  </div>
+
+
+<script>
+  function loadPage(url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(data, 'text/html');
+        const newContent = htmlDoc.querySelector('main') || htmlDoc.body;
+        document.getElementById('main-content').innerHTML = newContent.innerHTML;
+      })
+      .catch(error => {
+        document.getElementById('main-content').innerHTML = '<p class="text-danger">Failed to load page.</p>';
+      });
+  }
+
+  // Load dashboard by default
+  window.onload = () => loadPage('/admin/dashboard');
+
+  function submitEditForm(event, userId) {
+  event.preventDefault(); // stop the form from submitting normally
+  
+  const form = document.getElementById('editUserForm' + userId);
+  const formData = new FormData(form);
+
+  fetch(`/admin/edit_user/${userId}`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      // Successfully saved
+      alert('User updated successfully!');
+      loadPage('/admin/users'); // reload View Users page dynamically
+      var modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal' + userId));
+      modal.hide(); // close the modal
+    } else {
+      alert('Failed to update user.');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Something went wrong.');
+  });
+}
+
+</script>
+{% endblock %}

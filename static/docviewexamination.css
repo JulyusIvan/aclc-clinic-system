@@ -1,0 +1,85 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-table thead th {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.custom-table tbody tr {
+  background-color: #fff;
+  transition: background 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f3f9ff;
+}
+
+.btn-examine {
+  background-color: #198754;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+}
+
+.btn-examine:hover {
+  background-color: #157347;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: black;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+  margin-left: 4px;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+  margin-left: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #c62828;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  font-weight: 500;
+  border-radius: 50px;
+}
+.sidebar .profile-pic-container img {
+    border: 3px solid #ff0000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+#examinationSearchInput {
+  max-width: 400px;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

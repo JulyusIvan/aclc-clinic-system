@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ACLC COLLEGE STUDENT CLINIC RECORD SYSTEM{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    {{ bootstrap.load_css() }}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-semibold text-white" href="#">
+                <img src="{{ url_for('static', filename='logo2.png') }}" width="32" height="32" alt="Logo">
+                <span style="letter-spacing: 0.5px;"> ACLC College Student Clinic Record System</span>
+            </a>
+
+            {% if session.get('username') %}
+            <div class="d-flex align-items-center text-white">
+                <span class="me-3">Welcome, <strong>{{ session['username'] }}</strong> ({{ session['role'] }})</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+   {% if session.get('username') %}
+   <div class="sidebar">
+       <div class="text-center mb-4">
+          
+           <div class="profile-pic-container">
+            {% if user and user.profile_photo %}
+            <img src="{{ url_for('static', filename='uploads/' ~ user.profile_photo) }}" class="rounded-circle" width="100" height="100" alt="Profile">
+           {% else %}
+            <img src="{{ url_for('static', filename='default.png') }}" class="rounded-circle" width="100" height="100" alt="Default Profile">
+           {% endif %}
+           </div>
+   
+           <h1 class="mt-2">{{ session['username'] }}</h1>
+           <p class="badge-role">{{ session['role'] | capitalize }}</p>
+
+           <form action="{{ url_for('upload_profile') }}" method="POST" enctype="multipart/form-data" class="d-grid gap-2 px-3">
+            <input type="file" name="profile_photo" id="fileInput" class="form-control form-control-sm mb-2" accept="image/*" style="display: none;">
+            <button type="button" class="upload-btn" onclick="toggleFileInput()"> <span class="icon">📤</span> Upload Profile</button>
+          
+            <button type="submit" id="submitBtn" class="submit-btn" style="display: none;">
+              <span class="icon">✅</span> Submit
+          </button>
+          
+          </form>
+           <hr class="sidebar-divider">
+
+
+       </div>
+
+       
+       {% if session['role'] == 'admin' %}
+           <a href="{{ url_for('admin_dashboard') }}">📊 Dashboard</a>
+           <a href="{{ url_for('register_user') }}">📝 Register User</a>
+           <a href="{{ url_for('view_users') }}">👥 View All Users</a>
+           <a href="{{ url_for('admin_students') }}">🎓 View Students Info</a>
+           <a href="{{ url_for('nurse_profile') }}">👩‍⚕️ Nurse Profile</a>
+           <a href="{{ url_for('view_doctors') }}">👨‍⚕️ Doctor Profile</a>
+           <a href="{{ url_for('view_logs') }}">👁️ View Logs</a>
+
+       {% elif session['role'] == 'nurse' %}
+           <a href="{{ url_for('nurse_dashboard') }}">📊 Dashboard</a>
+           <a href="{{ url_for('nurse_view_students') }}">👩‍⚕️ Student List</a>
+           <a href="{{ url_for('nurse_view_examinations') }}">🩺 Examinations</a>
+           <a href="{{ url_for('nurse_view_logs') }}">👁️ View Logs</a>
+           <a href="{{ url_for('view_student_medical_records') }}">📝 Medical Records</a>
+
+       {% elif session['role'] == 'doctor' %}
+           <a href="{{ url_for('doctor_dashboard') }}">📊 Dashboard</a>
+           <a href="{{ url_for('doctor_examinations') }}">🩺 Examinations</a>
+           <a href="{{ url_for('view_all_diagnoses') }}">👁️ View Diagnoses</a>
+
+
+
+
+       {% endif %}
+   </div>
+   {% endif %}
+   
+    
+
+    <main class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+     
+  <footer class="text-center mt-5 mb-3">
+    <p>&copy; {{ 2025 }} JULIUS IVAN BALAGULAN | ACLC COLLEGE STUDENT CLINIC RECORD SYSTEM <br>
+    I.T MAJOR ELECTIVE 2 — Information Technology</p>
+  </footer>
+
+  <script>
+    function toggleFileInput() {
+      const fileInput = document.getElementById('fileInput');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      const isHidden = fileInput.style.display === 'none';
+  
+      fileInput.style.display = isHidden ? 'block' : 'none';
+      submitBtn.style.display = isHidden ? 'inline-block' : 'none';
+    }
+  </script>
+  
+  
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function (alert) {
+      setTimeout(() => {
+        alert.style.transition = 'opacity 1s ease';
+        alert.style.opacity = '0';
+        setTimeout(() => alert.remove(), 1000);
+      }, 3000);
+    });
+  });
+</script>
+{{ bootstrap.load_js() }}
+</body>
+</html>

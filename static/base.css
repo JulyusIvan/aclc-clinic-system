@@ -1,0 +1,113 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f2f6fc;
+  }
+  .navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .card {
+    border-radius: 1rem;
+  }
+  footer {
+    font-size: 0.9rem;
+    color: #ff1e00;
+  }
+  .sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    background-color: #006eff;
+    color: white;
+    padding-top: 60px;
+  }
+  .sidebar a {
+    color: white;
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+  }
+  .sidebar a:hover {
+    background-color: #ff0000;
+  }
+  .content {
+    margin-left: 250px;
+    padding: 20px;
+  }
+/* Animation keyframes */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.sidebar-divider {
+  border-top: 5px solid rgb(21, 255, 0);
+  width: 75%;
+  margin: 1rem auto;
+}
+.upload-btn {
+  background-color: #ffffff;
+  color: #002f6c;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: #004080;
+  color: #ffffff;
+}
+
+.upload-btn .icon {
+  font-size: 16px;
+}
+.submit-btn {
+  background-color: #004080;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0059b3;
+}
+
+.submit-btn .icon {
+  font-size: 16px;
+}
+.badge-role {
+  display: inline-block;
+  background-color: #ff0040;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-top: 5px;
+  text-transform: capitalize;
+}

@@ -1,0 +1,77 @@
+{% extends "Base/base.html" %}
+{% block title %}Doctor - ACLC College Students Clinic Record System{% endblock %}
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+<div id="main-content">
+  <div class="container-fluid px-4">
+    <h2 class="mb-4 fw-bold" style="font-family: 'BrickSans', sans-serif; color: #3c3c3c;">
+      Doctor Dashboard Overview
+    </h2>
+
+    <div class="row g-4">
+      <!-- Total Examinations -->
+      <div class="col-md-4 dashboard-card">
+        <div class="card border-0 shadow-lg rounded-4 text-white" style="background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="card-subtitle mb-2 text-uppercase fw-semibold">Total Examinations</h6>
+              <h2 class="fw-bold mb-0">{{ examine_count }}</h2>
+            </div>
+            <div>
+              <i class="fas fa-notes-medical fa-3x opacity-50"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Diagnoses -->
+      <div class="col-md-4 dashboard-card">
+        <div class="card border-0 shadow-lg rounded-4 text-white" style="background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="card-subtitle mb-2 text-uppercase fw-semibold">Total Diagnoses</h6>
+              <h2 class="fw-bold mb-0">{{ diagnosis_count }}</h2>
+            </div>
+            <div>
+              <i class="fas fa-file-medical fa-3x opacity-50"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Recent Diagnoses -->
+    <div class="card mt-5 border-0 shadow-sm rounded-4 recent-visits-table">
+      <div class="card-body">
+        <h4 class="card-title fw-bold mb-4">🧾 Recent Diagnoses</h4>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Diagnosis</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for diagnosis in recent_diagnoses %}
+              <tr>
+                <td>{{ diagnosis.examine.student.first_name }} {{ diagnosis.examine.student.last_name }}</td>
+                <td>{{ diagnosis.date_diagnose }}</td>
+                <td>{{ diagnosis.diagnose_details }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="3" class="text-center text-muted">No recent diagnoses found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

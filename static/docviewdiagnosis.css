@@ -1,0 +1,47 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-table thead th {
+    background: linear-gradient(to right, #2196F3, #00BCD4);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.custom-table tbody tr {
+    background-color: #fff;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f3f9ff;
+}
+
+.btn {
+    font-weight: 500;
+}
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: black;
+}
+.btn-danger {
+    background-color: #f44336;
+    border: none;
+    color: white;
+}
+.sidebar .profile-pic-container img {
+    border: 3px solid #ff0000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+#diagnosisSearchInput {
+  max-width: 400px;
+  margin: 0 auto 1rem auto;
+  display: block;
+}

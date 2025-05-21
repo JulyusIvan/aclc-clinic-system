@@ -1,0 +1,166 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+  }
+
+  h3 {
+    color: #333;
+  }
+
+  /* Custom Button Styles */
+  .btn-success,
+  .btn-warning,
+  .btn-danger,
+  .btn-primary {
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-weight: 500;
+    transition: 0.3s ease;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+  }
+
+  .btn-warning:hover {
+    background: linear-gradient(45deg, #ffc107, #e0a800);
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+    color: white;
+  }
+
+  /* Table Styling */
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .table thead {
+    background: #f1f1f1;
+  }
+
+  .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #fafafa;
+  }
+
+  .table td, .table th {
+    vertical-align: middle;
+  }
+
+  /* Modal Header Styling */
+  .modal-header {
+    background: linear-gradient(to right, #0066ff, #3399ff);
+    color: white;
+    border-bottom: none;
+  }
+
+  .modal-title {
+    font-weight: bold;
+  }
+
+  /* Modal Content Styling */
+  .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+
+  .form-control {
+    border-radius: 6px;
+  }
+
+  /* Responsive Fixes */
+  @media (max-width: 576px) {
+    .btn {
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+  }
+  .table thead th {
+    background: linear-gradient(135deg, #2980f3, #4facfe);
+    color: white;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-weight: bold;
+    padding: 12px;
+  }
+
+  /* Rounded Cell Styling */
+  .table tbody td {
+    background: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 14px;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  /* Table General Style */
+  .table {
+    border-collapse: separate;
+    border-spacing: 0 12px;
+  }
+
+  /* Custom Action Buttons */
+  .btn-edit {
+    background-color: #f4b400;
+    color: #000;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-right: 5px;
+    border: 2px solid #000;
+  }
+
+  .btn-edit:hover {
+    background-color: #d9a600;
+    color: white;
+  }
+
+  .btn-delete {
+    background-color: #ff5e7e;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 5px 14px;
+    border: none;
+  }
+
+  .btn-delete i {
+    margin-right: 4px;
+  }
+
+  .btn-delete:hover {
+    background-color: #e64c67;
+  }
+
+  /* Responsive Text & Buttons */
+  .table td, .table th {
+    font-size: 15px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+  .sidebar .profile-pic-container img {
+    border: 3px solid #ff0000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+#searchInput {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
