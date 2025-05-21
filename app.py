@@ -5,7 +5,6 @@ from sqlalchemy import Integer, String, Text, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column,Relationship
 import os
 from werkzeug.utils import secure_filename
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
 
 
@@ -135,7 +134,6 @@ def upload_profile():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        # Update the user in the database only
         user = User.query.filter_by(username=session['username']).first()
         user.profile_photo = filename
         db.session.commit()
@@ -157,7 +155,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):  
+        if user and user.password == password: 
             session['user_id'] = user.id
             session['username'] = user.username
             session['role'] = user.role
@@ -227,8 +225,7 @@ def register_user():
             flash('Username already exists.', 'warning')
             return redirect(url_for('register_user'))
 
-        hashed_password = generate_password_hash(password)
-        new_user = User(username=username, password=hashed_password, role=role)
+        new_user = User(username=username, password=password, role=role)
         db.session.add(new_user)
         db.session.commit()
         flash('User registered successfully!', 'success')
@@ -247,7 +244,7 @@ def edit_user(user_id):
     if request.method == 'POST':
         user.username = request.form['username']
         if request.form['password']:
-            user.password = generate_password_hash(request.form['password'])
+             user.password = request.form['password']
         user.role = request.form['role']
 
         db.session.commit()
@@ -380,7 +377,6 @@ def nurse_view_examinations():
     examinations = StudentExamine.query.all()
     students = StudentInfo.query.all()
 
-    # Group examinations by student
     grouped_students = []
     for student in students:
         student_exams = [exam for exam in examinations if exam.student_id == student.id]
