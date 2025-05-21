@@ -5,6 +5,7 @@ from sqlalchemy import Integer, String, Text, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column,Relationship
 import os
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
 
 
@@ -155,7 +156,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        if user and user.password == password: 
+        if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             session['username'] = user.username
             session['role'] = user.role
@@ -225,7 +226,9 @@ def register_user():
             flash('Username already exists.', 'warning')
             return redirect(url_for('register_user'))
 
-        new_user = User(username=username, password=password, role=role)
+        hashed_password = generate_password_hash(password)
+        new_user = User(username=username, password=hashed_password, role=role)
+
         db.session.add(new_user)
         db.session.commit()
         flash('User registered successfully!', 'success')
@@ -244,7 +247,7 @@ def edit_user(user_id):
     if request.method == 'POST':
         user.username = request.form['username']
         if request.form['password']:
-             user.password = request.form['password']
+            user.password = generate_password_hash(request.form['password'])
         user.role = request.form['role']
 
         db.session.commit()
